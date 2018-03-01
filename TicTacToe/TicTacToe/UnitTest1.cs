@@ -1,4 +1,5 @@
 using System;
+using TicTacToeMain;
 using Xunit;
 
 namespace TicTacToe
@@ -8,6 +9,8 @@ namespace TicTacToe
         [Fact]
         public void Test1()
         {
+            var userInput = new GetUserInput();
+            var result = userInput.UserInput();
         }
     }
 }
