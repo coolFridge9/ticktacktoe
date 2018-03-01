@@ -16,31 +16,39 @@ namespace TicTacToeMain
             var input = Console.ReadLine();
             return input;
         }
-
-        public string ReadUserInput(string userinput)
-        {
-            return userinput;
-        }
-        
         
         
         public Tuple<int,int> UserInput()
         {
 
-            Regex format = new Regex("[1-3],[1-3]");
+            //Regex format = new Regex("[1-3],[1-3]");
             string coordinates = ReadUserInput();
-            while (!format.IsMatch(coordinates))
+            
+            while (!ValidateInput(coordinates))
             {
                 Console.WriteLine("invalid move");
                 PrintInstructions();
                 coordinates = ReadUserInput(); 
             }
+            return CoordinatesToTuple(coordinates);
 
-            var splitCoordinates = coordinates.Split(',');
-            int x = Int32.Parse(splitCoordinates[0]);
-            int y = Int32.Parse(splitCoordinates[1]);
+        }
+
+        public Boolean ValidateInput(string coordinates)
+        {
+            Regex format = new Regex("[1-3],[1-3]");
+            return format.IsMatch(coordinates); 
+        }
+
+        public Tuple<int, int> CoordinatesToTuple(string coordinateString)
+        {
+            var splitCoordinates = coordinateString.Split(',');
+            var x = int.Parse(splitCoordinates[0]);
+            var y = int.Parse(splitCoordinates[1]);
             return Tuple.Create(x,y);
         }
+        
+        
         
 
     }

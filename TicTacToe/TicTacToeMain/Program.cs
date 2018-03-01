@@ -6,9 +6,10 @@ namespace TicTacToeMain
     {
         static void Main(string[] args)
         {
+            Board board = new Board()
             GetUserInput move = new GetUserInput();
             move.PrintInstructions();
-            Console.WriteLine(move.UserInput());
+            var userMove = move.UserInput();
             
         }
     }
