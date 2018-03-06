@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices.ComTypes;
 using TicTacToeMain;
 using Xunit;
 
@@ -43,5 +45,41 @@ namespace TicTacToe
             Assert.Equal(newTuple, result);
 
         }
+
+        [Theory]
+        [InlineData(1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0)]
+        [InlineData(3, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0)]
+
+        public void CheckBoardIsCorrectAfterMove(int x, int y, int loc00, int loc01, int loc02, int loc10, int loc11,
+            int loc12, int loc20, int loc21, int loc22)
+        {
+            var board = new Board();
+            board.AddMove( Tuple.Create(x,y), false);
+            var result = board.locations;
+            Assert.Equal(result[0,0],loc00);
+            Assert.Equal(result[0,1],loc01);
+            Assert.Equal(result[0,2],loc02);
+            Assert.Equal(result[1,0],loc10);
+            Assert.Equal(result[1,1],loc11);
+            Assert.Equal(result[1,2],loc12);
+            Assert.Equal(result[2,0],loc20);
+            Assert.Equal(result[2,1],loc21);
+            Assert.Equal(result[2,2],loc22);
+        }
+
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(2,3)]
+        public void IsThisPlaceTaken(int x, int y)
+        {
+            var board = new Board();
+            Boolean allowed = board.IsLocationTaken(Tuple.Create(x, y));
+            board.AddMove(Tuple.Create(x,y),true);
+            Assert.Equal(2,board.locations[x-1,y-1]);
+            Boolean notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
+            Assert.False(allowed);
+            Assert.True(notAllowed);
+        }
+        
     }
 }
