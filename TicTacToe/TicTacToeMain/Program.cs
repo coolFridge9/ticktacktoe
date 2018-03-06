@@ -18,6 +18,8 @@ namespace TicTacToeMain
             }
             board.AddMove(userMove,false);
             seeBoard.PrintBoard(board);
+            ComputerTurn compMove = new ComputerTurn(board);
+            seeBoard.PrintBoard(board);
             
         }
     }
