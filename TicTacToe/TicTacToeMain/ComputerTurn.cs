@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Security.Cryptography.X509Certificates;
 
 namespace TicTacToeMain
@@ -10,21 +11,23 @@ namespace TicTacToeMain
         public ComputerTurn(Board board)
         {
             this.board = board;
+            
         }
 
         public Tuple<int, int> FindAvailableSpace() //write test
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 1; i <= 3; i++)
             {
-                for (int k = 0; k < 3; k++)
+                for (int k = 1; k <= 3; k++)
                 {
-                    if (board.locations[i, k] == 0)
+                    if (!board.IsLocationTaken(Tuple.Create(i,k)))
                         return Tuple.Create(i, k);
-                    return Tuple.Create(-1, -1);
 
                 }
             } 
+            return Tuple.Create(-1, -1);
         }
+        
         
     }
 }

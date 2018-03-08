@@ -12,12 +12,13 @@ namespace TicTacToe
         [InlineData("1,1")]
         [InlineData("1,3")]
         [InlineData("2,2")]
+        [InlineData("q")]
         public void CorrectInputFormat(string coordinatesString)
         {
             var userInput = new GetUserInput();
             var result = userInput.ValidateInput(coordinatesString);
             Assert.True(result);
-            //Assert.True(true);
+            
             
             
         }
@@ -79,6 +80,39 @@ namespace TicTacToe
             Boolean notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.False(allowed);
             Assert.True(notAllowed);
+        }
+
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(2,2)]
+        public void CheckLocationIsTaken(int x, int y)
+        {
+            var board= new Board();
+            board.AddMove(Tuple.Create(2,2));
+            board.AddMove(Tuple.Create(1,1));
+            Boolean isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
+            Assert.True(isItTaken);
+        }
+        
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(2,2)]
+        public void CheckLocationIsNotTaken(int x, int y)
+        {
+            var board= new Board();
+            Boolean isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
+            Assert.False(isItTaken);
+        }
+
+        [Fact]
+        public void FindingCorrectFreeSpace()
+        {
+            Board board = new Board();
+            board.AddMove(Tuple.Create(2,2),false);
+            board.AddMove(Tuple.Create(1,1),false);
+            var compTurn = new ComputerTurn(board);
+            var freeSpace = compTurn.FindAvailableSpace();
+            Assert.Equal(Tuple.Create(1, 2),freeSpace);
         }
         
     }

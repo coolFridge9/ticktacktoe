@@ -37,14 +37,20 @@ namespace TicTacToeMain
         public Boolean ValidateInput(string coordinates)
         {
             Regex format = new Regex("[1-3],[1-3]");
-            return format.IsMatch(coordinates); 
+            return (format.IsMatch(coordinates))|| coordinates=="q"; 
         }
 
         public Tuple<int, int> CoordinatesToTuple(string coordinateString)
         {
-            var splitCoordinates = coordinateString.Split(',');
-            var x = int.Parse(splitCoordinates[0]);
-            var y = int.Parse(splitCoordinates[1]);
+            var x =-1;
+            var y =-1;
+            if (coordinateString != "q")
+            {
+                var splitCoordinates = coordinateString.Split(',');
+                x = int.Parse(splitCoordinates[0]);
+                y = int.Parse(splitCoordinates[1]);
+            }
+
             return Tuple.Create(x,y);
         }
         

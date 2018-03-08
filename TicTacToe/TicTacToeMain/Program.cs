@@ -6,21 +6,38 @@ namespace TicTacToeMain
     {
         static void Main(string[] args)
         {
-            DisplayBoard seeBoard = new DisplayBoard();
             Board board = new Board();
-            GetUserInput move = new GetUserInput();
-            move.PrintInstructions();
-            var userMove = move.UserInput();
-            while (board.IsLocationTaken(userMove))
-            {
-                Console.WriteLine("This location is taken");
-                userMove = move.UserInput();
-            }
-            board.AddMove(userMove,false);
-            seeBoard.PrintBoard(board);
-            ComputerTurn compMove = new ComputerTurn(board);
-            seeBoard.PrintBoard(board);
+            DisplayBoard seeBoard = new DisplayBoard(board);
             
+            int amountOfMoves = 0;
+            while (amountOfMoves <= 4)
+            {
+                GetUserInput move = new GetUserInput();
+                move.PrintInstructions();
+                var userMove = move.UserInput();
+                if (!userMove.Equals(Tuple.Create(-1,-1)))
+                {
+                    while (board.IsLocationTaken(userMove))
+                    {
+                        Console.WriteLine("This location is taken");
+                        move.PrintInstructions();
+                        userMove = move.UserInput();
+                    }
+
+
+                    amountOfMoves += 1;
+                    board.AddMove(userMove);
+                    seeBoard.PrintBoard(board);
+                    ComputerTurn compMove = new ComputerTurn(board);
+                    board.AddMove(compMove.FindAvailableSpace(), true);
+                    seeBoard.PrintBoard(board);
+                }
+                else
+                {
+                    amountOfMoves = 10;
+                }
+            }
+
         }
     }
 }

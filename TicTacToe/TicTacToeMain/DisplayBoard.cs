@@ -4,6 +4,10 @@ namespace TicTacToeMain
 {
     public class DisplayBoard
     {
+        public DisplayBoard(Board board)
+        {
+            PrintBoard(board);
+        }
         public void PrintBoard(Board board)
         {
             for (int i = 0; i < 3; i++)
@@ -19,6 +23,7 @@ namespace TicTacToeMain
                 }
                 Console.WriteLine("");
             }
+            Console.WriteLine("");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace TicTacToeMain
     {
         public int[,] locations = new int[3,3];
 
-        public void AddMove(Tuple<int,int> location, Boolean isComputer)
+        public void AddMove(Tuple<int,int> location, Boolean isComputer = false)
         {
             int marker;
             switch (isComputer)
