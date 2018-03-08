@@ -5,9 +5,11 @@ namespace TicTacToeMain
     public class Board
     {
         public int[,] locations = new int[3,3];
+        public int spacesTaken = 0;
 
         public void AddMove(Tuple<int,int> location, Boolean isComputer = false)
         {
+            spacesTaken += 1;
             int marker;
             switch (isComputer)
             {

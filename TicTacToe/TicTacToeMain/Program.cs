@@ -8,9 +8,9 @@ namespace TicTacToeMain
         {
             Board board = new Board();
             DisplayBoard seeBoard = new DisplayBoard(board);
+            var computer = new ComputerTurn();
             
-            int amountOfMoves = 0;
-            while (amountOfMoves <= 4)
+            while (board.spacesTaken < 9)
             {
                 GetUserInput move = new GetUserInput();
                 move.PrintInstructions();
@@ -24,19 +24,15 @@ namespace TicTacToeMain
                         userMove = move.UserInput();
                     }
 
-
-                    amountOfMoves += 1;
                     board.AddMove(userMove);
                     seeBoard.PrintBoard(board);
-                    ComputerTurn compMove = new ComputerTurn(board);
-                    board.AddMove(compMove.FindAvailableSpace(), true);
+                    if(!computer.IsBoardFull(board))
+                        board.AddMove(computer.FindAvailableSpace(board), true);
                     seeBoard.PrintBoard(board);
                 }
-                else
-                {
-                    amountOfMoves = 10;
-                }
+              
             }
+            Console.WriteLine("Looks like no party won the game\nimprove your game next time");
 
         }
     }
