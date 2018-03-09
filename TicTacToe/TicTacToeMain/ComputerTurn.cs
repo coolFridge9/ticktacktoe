@@ -22,7 +22,7 @@ namespace TicTacToeMain
 
         public bool IsBoardFull(Board board)
         {
-            return board.spacesTaken == 9;
+            return board.SpacesTaken == 9;
         }
         
         

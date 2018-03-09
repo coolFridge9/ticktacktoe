@@ -1,15 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TicTacToeMain
 {
     public class Board
     {
         public int[,] locations = new int[3,3];
-        public int spacesTaken = 0;
+        public int SpacesTaken = 0;
+        public List<Tuple<int, int>> UserMovesList = new List<Tuple<int, int>>();
+        public List<Tuple<int, int>> ComputerMovesList = new List<Tuple<int, int>>();
 
         public void AddMove(Tuple<int,int> location, Boolean isComputer = false)
         {
-            spacesTaken += 1;
+            if (!isComputer)
+                UserMovesList.Add(location);
+            else
+                ComputerMovesList.Add(location);
+            
+            SpacesTaken += 1;
             int marker;
             switch (isComputer)
             {
@@ -36,7 +46,12 @@ namespace TicTacToeMain
             return false;
 
         }
+
+        public bool DidAPlayerWin()
+        {
+            var user = new WinningMoves(UserMovesList,ComputerMovesList);
+
+        }
         
     }
-    
 }

@@ -20,8 +20,6 @@ namespace TicTacToeMain
         
         public Tuple<int,int> UserInput()
         {
-
-            //Regex format = new Regex("[1-3],[1-3]");
             string coordinates = ReadUserInput();
             
             while (!ValidateInput(coordinates))

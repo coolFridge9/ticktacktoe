@@ -10,7 +10,7 @@ namespace TicTacToeMain
             DisplayBoard seeBoard = new DisplayBoard(board);
             var computer = new ComputerTurn();
             
-            while (board.spacesTaken < 9)
+            while (board.SpacesTaken < 9)
             {
                 GetUserInput move = new GetUserInput();
                 move.PrintInstructions();
@@ -25,9 +25,14 @@ namespace TicTacToeMain
                     }
 
                     board.AddMove(userMove);
+                    //board.DidAPlayerWin();
                     seeBoard.PrintBoard(board);
-                    if(!computer.IsBoardFull(board))
+                    if (!computer.IsBoardFull(board))
+                    {
                         board.AddMove(computer.FindAvailableSpace(board), true);
+                        //board.DidAPlayerWin();
+                    }
+
                     seeBoard.PrintBoard(board);
                 }
               
