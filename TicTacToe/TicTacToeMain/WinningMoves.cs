@@ -4,18 +4,21 @@ namespace TicTacToeMain
 {
     public class WinningMoves
     {
-        public List<Tuple<int, int>> UserMovesList = new List<Tuple<int, int>>();
-        public List<Tuple<int, int>> ComputerMovesList = new List<Tuple<int, int>>();
-        public WinningMoves(List<Tuple<int, int>> UserMovesList, List<Tuple<int, int>> ComputerMovesList)
+        public List<Tuple<int, int>> MovesList = new List<Tuple<int, int>>();
+        public WinningMoves(List<Tuple<int, int>> MovesList)
         {
-            this.UserMovesList = UserMovesList;
-            this.ComputerMovesList = ComputerMovesList;
+            this.MovesList = MovesList;
         }
         public bool CheckStraightWin(Board board)
         {
-            //board.locations
+            for (int i = 0; i < MovesList.Count; i++)
+            {
+                Console.WriteLine(MovesList[i]);
+            }
+
+            return true;
         }
         
-        public bool 
+        //public bool 
     }
 }

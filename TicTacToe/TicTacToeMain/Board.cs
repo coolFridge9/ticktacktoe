@@ -47,9 +47,10 @@ namespace TicTacToeMain
 
         }
 
-        public bool DidAPlayerWin()
+        public bool DidUserWin()
         {
-            var user = new WinningMoves(UserMovesList,ComputerMovesList);
+            var user = new WinningMoves(UserMovesList);
+            return true;
 
         }
         
