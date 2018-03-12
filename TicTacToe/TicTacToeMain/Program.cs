@@ -6,30 +6,30 @@ namespace TicTacToeMain
     {
         static void Main(string[] args)
         {
-            Board board = new Board();
-            DisplayBoard seeBoard = new DisplayBoard(board);
+            var board = new Board();
+            var seeBoard = new DisplayBoard(board);
             var computer = new ComputerTurn();
             var userWin = false;
             var compWin = false;
             
-            while (board.SpacesTaken < 9)
+            while (board.SpacesTaken < 9 && !userWin && !compWin)
             {
-                GetUserInput move = new GetUserInput();
-                move.PrintInstructions();
-                var userMove = move.UserInput();
+                var move = new GetUserInput();
+                GetUserInput.PrintInstructions();
+                var userMove = GetUserInput.UserInput();
                 if (!userMove.Equals(Tuple.Create(-1,-1)))
                 {
                     while (board.IsLocationTaken(userMove))
                     {
                         Console.WriteLine("This location is taken");
-                        move.PrintInstructions();
-                        userMove = move.UserInput();
+                        GetUserInput.PrintInstructions();
+                        userMove = GetUserInput.UserInput();
                     }
 
                     board.AddMove(userMove);
                     userWin = board.DidUserWin();
                     DisplayBoard.PrintBoard(board);
-                    if (!ComputerTurn.IsBoardFull(board))
+                    if (!ComputerTurn.IsBoardFull(board) && !userWin)
                     {
                         board.AddMove(ComputerTurn.FindAvailableSpace(board), true);
                         compWin =board.DidComputerWin();

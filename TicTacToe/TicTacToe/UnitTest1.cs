@@ -16,7 +16,7 @@ namespace TicTacToe
         public void CorrectInputFormat(string coordinatesString)
         {
             var userInput = new GetUserInput();
-            var result = userInput.ValidateInput(coordinatesString);
+            var result = GetUserInput.ValidateInput(coordinatesString);
             Assert.True(result);
             
             
@@ -29,7 +29,7 @@ namespace TicTacToe
         public void IncorrectInputFormat(string coordinatesString)
         {
             var userInput = new GetUserInput();
-            var result = userInput.ValidateInput(coordinatesString);
+            var result = GetUserInput.ValidateInput(coordinatesString);
             Assert.False(result);
             
         }
@@ -41,7 +41,7 @@ namespace TicTacToe
         public void InputStringOutputTuple(string coordinatesString, int x, int y)
         {
             var userInput = new GetUserInput();
-            var result = userInput.CoordinatesToTuple(coordinatesString);
+            var result = GetUserInput.CoordinatesToTuple(coordinatesString);
             var newTuple = Tuple.Create(x, y);
             Assert.Equal(newTuple, result);
 
@@ -56,7 +56,7 @@ namespace TicTacToe
         {
             var board = new Board();
             board.AddMove( Tuple.Create(x,y), false);
-            var result = board.locations;
+            var result = board.Locations;
             Assert.Equal(result[0,0],loc00);
             Assert.Equal(result[0,1],loc01);
             Assert.Equal(result[0,2],loc02);
@@ -76,7 +76,7 @@ namespace TicTacToe
             var board = new Board();
             Boolean allowed = board.IsLocationTaken(Tuple.Create(x, y));
             board.AddMove(Tuple.Create(x,y),true);
-            Assert.Equal(2,board.locations[x-1,y-1]);
+            Assert.Equal(2,board.Locations[x-1,y-1]);
             Boolean notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.False(allowed);
             Assert.True(notAllowed);

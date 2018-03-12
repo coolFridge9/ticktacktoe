@@ -15,7 +15,7 @@ namespace TicTacToeMain
                 for (var k = 0; k < 3; k++)
                 {
                     var symbol = '.';
-                    switch (board.locations[i, k])
+                    switch (board.Locations[i, k])
                     {
                         case 1:
                             symbol = 'x';

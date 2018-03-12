@@ -55,5 +55,15 @@ namespace TicTacToeMain
         {
             return CheckDiagonalWin() || CheckStraightWin();
         }
+
+        public void UserWinMessage()
+        {
+            Console.WriteLine("Congradulations! you are the ultimate winner");
+        }
+
+        public void UserLoseMessage()
+        {
+            Console.WriteLine("I cant believe you lost smh");
+        }
     }
 }

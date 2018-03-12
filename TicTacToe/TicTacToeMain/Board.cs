@@ -7,12 +7,12 @@ namespace TicTacToeMain
 {
     public class Board
     {
-        public int[,] locations = new int[3,3];
+        public readonly int[,] Locations = new int[3,3];
         public int SpacesTaken = 0;
-        public List<Tuple<int, int>> UserMovesList = new List<Tuple<int, int>>();
-        public List<Tuple<int, int>> ComputerMovesList = new List<Tuple<int, int>>();
+        private readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
+        private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
 
-        public void AddMove(Tuple<int,int> location, Boolean isComputer = false)
+        public void AddMove(Tuple<int,int> location, bool isComputer = false)
         {
             
             SpacesTaken += 1;
@@ -21,23 +21,30 @@ namespace TicTacToeMain
             {
                 case true:
                     marker = 2;
-                    ComputerMovesList.Add(location);
+                    _computerMovesList.Add(location);
                     break;
                 default:
                     marker = 1;
-                    UserMovesList.Add(location);
+                    _userMovesList.Add(location);
                     break;
             }
             
-            int x = location.Item1-1; //subtracted 1 to start from 0
-            int y = location.Item2-1;
-            locations[x,y] = marker;
+            var x = location.Item1-1; //subtracted 1 to start from 0
+            var y = location.Item2-1;
+            Locations[x,y] = marker;
         }
         public bool IsLocationTaken(Tuple<int,int> loc)
         {
-            int place = locations[loc.Item1-1, loc.Item2-1];
-            if (place == 1 || place == 2)
+            var place = Locations[loc.Item1-1, loc.Item2-1];
+            return place == 1 || place == 2;
+        }
+
+        public bool DidUserWin()
+        {
+            var user = new WinningMoves(_userMovesList);
+            if (user.CheckWin())
             {
+                user.UserWinMessage();
                 return true;
             }
 
@@ -45,19 +52,16 @@ namespace TicTacToeMain
 
         }
 
-        public bool DidUserWin()
-        {
-            var user = new WinningMoves(UserMovesList);
-            Console.WriteLine(user.CheckWin());
-            return user.CheckWin();
-
-        }
-
         public bool DidComputerWin()
         {
-            var user = new WinningMoves(ComputerMovesList);
-            Console.WriteLine(user.CheckWin());
-            return user.CheckWin();
+            var user = new WinningMoves(_computerMovesList);
+            if(user.CheckWin())
+            {
+                user.UserLoseMessage();
+                return true;
+            }
+
+            return false;
         }
         
     }
