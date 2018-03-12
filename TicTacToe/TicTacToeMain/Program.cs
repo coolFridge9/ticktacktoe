@@ -13,12 +13,13 @@ namespace TicTacToeMain
             var compWin = false;
             var quit = false;
             
-            while (board.SpacesTaken < 9 && !userWin && !compWin && !quit)
+            while (board.IsAvailableBoardSpace() && !userWin && !compWin && !quit)
             {
                 var move = new GetUserInput();
                 GetUserInput.PrintInstructions();
                 var userMove = GetUserInput.UserInput();
-                if (!userMove.Equals(Tuple.Create(-1,-1)))
+                quit = userMove.Equals(Tuple.Create(-1, -1));
+                if (!quit)
                 {
                     while (board.IsLocationTaken(userMove))
                     {
@@ -34,25 +35,17 @@ namespace TicTacToeMain
                     {
                         board.AddMove(ComputerTurn.FindAvailableSpace(board), true);
                         compWin =board.DidComputerWin();
+                        DisplayBoard.PrintBoard(board);
                     }
 
-                    DisplayBoard.PrintBoard(board);
+                    
                 }
-                else
-                {
-                    quit = true;
-                }
+                
               
             }
-            if(userWin)
-                Console.WriteLine("Congradulations! you are the ultimate winner");
-            else if(compWin)
-                Console.WriteLine("I cant believe you lost smh");
-            else
-            {
-                Console.WriteLine("\nLooks like no party won the game\nimprove your game next time");
-            }
-            
+
+            var endGame = new FinishGameMessage(userWin, compWin);
+
 
         }
     }

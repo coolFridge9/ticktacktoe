@@ -50,6 +50,11 @@ namespace TicTacToeMain
             var user = new WinningMoves(_computerMovesList);
             return user.CheckWin();
         }
+
+        public bool IsAvailableBoardSpace()
+        {
+            return SpacesTaken < 9;
+        }
         
     }
 }
