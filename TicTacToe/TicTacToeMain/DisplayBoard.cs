@@ -8,17 +8,23 @@ namespace TicTacToeMain
         {
             PrintBoard(board);
         }
-        public void PrintBoard(Board board)
+        public static void PrintBoard(Board board)
         {
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
-                for (int k = 0; k < 3; k++)
+                for (var k = 0; k < 3; k++)
                 {
-                    char symbol = '.';
-                    if (board.locations[i, k] == 1)
-                        symbol = 'x';
-                    if (board.locations[i, k] == 2)
-                        symbol = 'o';
+                    var symbol = '.';
+                    switch (board.locations[i, k])
+                    {
+                        case 1:
+                            symbol = 'x';
+                            break;
+                        case 2:
+                            symbol = 'o';
+                            break;
+                    }
+
                     Console.Write(symbol);
                 }
                 Console.WriteLine("");

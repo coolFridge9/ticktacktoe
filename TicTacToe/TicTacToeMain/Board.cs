@@ -14,10 +14,6 @@ namespace TicTacToeMain
 
         public void AddMove(Tuple<int,int> location, Boolean isComputer = false)
         {
-            if (!isComputer)
-                UserMovesList.Add(location);
-            else
-                ComputerMovesList.Add(location);
             
             SpacesTaken += 1;
             int marker;
@@ -25,9 +21,11 @@ namespace TicTacToeMain
             {
                 case true:
                     marker = 2;
+                    ComputerMovesList.Add(location);
                     break;
                 default:
                     marker = 1;
+                    UserMovesList.Add(location);
                     break;
             }
             
@@ -50,8 +48,16 @@ namespace TicTacToeMain
         public bool DidUserWin()
         {
             var user = new WinningMoves(UserMovesList);
-            return true;
+            Console.WriteLine(user.CheckWin());
+            return user.CheckWin();
 
+        }
+
+        public bool DidComputerWin()
+        {
+            var user = new WinningMoves(ComputerMovesList);
+            Console.WriteLine(user.CheckWin());
+            return user.CheckWin();
         }
         
     }

@@ -6,7 +6,7 @@ namespace TicTacToeMain
 {
     public class ComputerTurn
     {
-        public Tuple<int, int> FindAvailableSpace(Board board) //write test
+        public static Tuple<int, int> FindAvailableSpace(Board board) 
         {
             for (var i = 1; i <= 3; i++)
             {
@@ -20,7 +20,7 @@ namespace TicTacToeMain
             return Tuple.Create(-1, -1);
         }
 
-        public bool IsBoardFull(Board board)
+        public static bool IsBoardFull(Board board)
         {
             return board.SpacesTaken == 9;
         }

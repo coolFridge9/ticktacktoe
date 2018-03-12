@@ -34,7 +34,7 @@ namespace TicTacToeMain
 
         public Boolean ValidateInput(string coordinates)
         {
-            Regex format = new Regex("[1-3],[1-3]");
+            Regex format = new Regex("^[1-3],[1-3]$");
             return (format.IsMatch(coordinates))|| coordinates=="q"; 
         }
 
