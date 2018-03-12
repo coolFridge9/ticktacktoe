@@ -39,7 +39,15 @@ namespace TicTacToeMain
                 }
               
             }
-            Console.WriteLine("Looks like no party won the game\nimprove your game next time");
+            if(userWin)
+                Console.WriteLine("Congradulations! you are the ultimate winner");
+            else if(compWin)
+                Console.WriteLine("I cant believe you lost smh");
+            else
+            {
+                Console.WriteLine("Looks like no party won the game\nimprove your game next time");
+            }
+            
 
         }
     }

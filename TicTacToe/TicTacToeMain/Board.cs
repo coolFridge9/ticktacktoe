@@ -42,26 +42,13 @@ namespace TicTacToeMain
         public bool DidUserWin()
         {
             var user = new WinningMoves(_userMovesList);
-            if (user.CheckWin())
-            {
-                user.UserWinMessage();
-                return true;
-            }
-
-            return false;
-
+            return user.CheckWin();
         }
 
         public bool DidComputerWin()
         {
             var user = new WinningMoves(_computerMovesList);
-            if(user.CheckWin())
-            {
-                user.UserLoseMessage();
-                return true;
-            }
-
-            return false;
+            return user.CheckWin();
         }
         
     }

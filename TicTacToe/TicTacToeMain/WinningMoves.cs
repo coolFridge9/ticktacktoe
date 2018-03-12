@@ -47,8 +47,8 @@ namespace TicTacToeMain
                 new Tuple<int, int>(2, 2),
                 new Tuple<int, int>(3, 1)
             };
-            
-            return win1.SequenceEqual(moves)||win2.SequenceEqual(moves);
+
+            return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win1);
         }
 
         public bool CheckWin()
@@ -56,14 +56,10 @@ namespace TicTacToeMain
             return CheckDiagonalWin() || CheckStraightWin();
         }
 
-        public void UserWinMessage()
+        private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
         {
-            Console.WriteLine("Congradulations! you are the ultimate winner");
+            return !b.Except(a).Any();
         }
 
-        public void UserLoseMessage()
-        {
-            Console.WriteLine("I cant believe you lost smh");
-        }
     }
 }
