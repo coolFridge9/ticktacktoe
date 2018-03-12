@@ -11,8 +11,9 @@ namespace TicTacToeMain
             var computer = new ComputerTurn();
             var userWin = false;
             var compWin = false;
+            var quit = false;
             
-            while (board.SpacesTaken < 9 && !userWin && !compWin)
+            while (board.SpacesTaken < 9 && !userWin && !compWin && !quit)
             {
                 var move = new GetUserInput();
                 GetUserInput.PrintInstructions();
@@ -37,6 +38,10 @@ namespace TicTacToeMain
 
                     DisplayBoard.PrintBoard(board);
                 }
+                else
+                {
+                    quit = true;
+                }
               
             }
             if(userWin)
@@ -45,7 +50,7 @@ namespace TicTacToeMain
                 Console.WriteLine("I cant believe you lost smh");
             else
             {
-                Console.WriteLine("Looks like no party won the game\nimprove your game next time");
+                Console.WriteLine("\nLooks like no party won the game\nimprove your game next time");
             }
             
 
