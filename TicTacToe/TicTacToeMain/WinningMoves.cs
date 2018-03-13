@@ -12,7 +12,7 @@ namespace TicTacToeMain
             this._movesList = movesList;
         }
 
-        private bool CheckStraightWin() //fix bugg
+        private bool CheckStraightWin() 
         {
             var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
@@ -33,10 +33,8 @@ namespace TicTacToeMain
                     countY = 0;
                 }
                 if (countX == 2 || countY == 2)
-                {
-                    Console.WriteLine(true);
                     return true;
-                }
+                
             }
 
             return false;

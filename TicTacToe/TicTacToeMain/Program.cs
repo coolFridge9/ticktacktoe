@@ -8,7 +8,7 @@ namespace TicTacToeMain
         {
             var board = new Board();
             var seeBoard = new DisplayBoard(board);
-            var computer = new ComputerTurn();
+            var gamePlay= new GamePlay();
             var userWin = false;
             var compWin = false;
             var quit = false;
@@ -18,16 +18,10 @@ namespace TicTacToeMain
                 var move = new GetUserInput();
                 GetUserInput.PrintInstructions();
                 var userMove = GetUserInput.UserInput();
-                quit = userMove.Equals(Tuple.Create(-1, -1));
+                quit = board.DidUserQuit(userMove);
                 if (!quit)
                 {
-                    while (board.IsLocationTaken(userMove))
-                    {
-                        Console.WriteLine("This location is taken");
-                        GetUserInput.PrintInstructions();
-                        userMove = GetUserInput.UserInput();
-                    }
-
+                    userMove = gamePlay.ValidateLocation(board, userMove);
                     board.AddMove(userMove);
                     userWin = board.DidUserWin();
                     DisplayBoard.PrintBoard(board);
@@ -37,11 +31,7 @@ namespace TicTacToeMain
                         compWin =board.DidComputerWin();
                         DisplayBoard.PrintBoard(board);
                     }
-
-                    
-                }
-                
-              
+                } 
             }
 
             var endGame = new FinishGameMessage(userWin, compWin);

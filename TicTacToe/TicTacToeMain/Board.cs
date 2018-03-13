@@ -55,6 +55,11 @@ namespace TicTacToeMain
         {
             return SpacesTaken < 9;
         }
+
+        public bool DidUserQuit(Tuple<int,int> userMove)
+        {
+            return userMove.Equals(Tuple.Create(-1, -1));
+        }
         
     }
 }
