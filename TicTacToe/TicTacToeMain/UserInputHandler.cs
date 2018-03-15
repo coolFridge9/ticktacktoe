@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TicTacToeMain
 {
-    public class GetUserInput
+    public class UserInputHandler
     {
         
         public static void PrintInstructions()
@@ -18,7 +18,7 @@ namespace TicTacToeMain
         }
         
         
-        public static Tuple<int,int> UserInput()
+        public static Tuple<int,int> GetUserInput()
         {
             var coordinates = ReadUserInput();
             

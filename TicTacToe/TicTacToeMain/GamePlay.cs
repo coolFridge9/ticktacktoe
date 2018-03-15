@@ -4,16 +4,27 @@ namespace TicTacToeMain
 {
     public class GamePlay
     {
-        public Tuple<int, int> ValidateLocation(Board board, Tuple<int,int> userMove)
+        public static Tuple<int, int> ValidateLocation(Board board, Tuple<int,int> userMove)
         {
             while (board.IsLocationTaken(userMove))
             {
                 Console.WriteLine("This location is taken");
-                GetUserInput.PrintInstructions();
-                userMove = GetUserInput.UserInput();
+                UserInputHandler.PrintInstructions();
+                userMove = UserInputHandler.GetUserInput();
             }
 
             return userMove;
+        }
+
+        public static bool CanKeepPlaying(bool isSpace, bool compWin)
+        {
+            return isSpace && !compWin;
+        }
+
+        public static Tuple<int, int> GetMove()
+        {
+            UserInputHandler.PrintInstructions();
+            return UserInputHandler.GetUserInput();
         }
     }
 }

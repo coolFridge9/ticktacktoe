@@ -15,8 +15,8 @@ namespace TicTacToe
         [InlineData("q")]
         public void CorrectInputFormat(string coordinatesString)
         {
-            var userInput = new GetUserInput();
-            var result = GetUserInput.ValidateInput(coordinatesString);
+            var userInput = new UserInputHandler();
+            var result = UserInputHandler.ValidateInput(coordinatesString);
             Assert.True(result);
             
             
@@ -28,8 +28,8 @@ namespace TicTacToe
         [InlineData("0,2")]
         public void IncorrectInputFormat(string coordinatesString)
         {
-            var userInput = new GetUserInput();
-            var result = GetUserInput.ValidateInput(coordinatesString);
+            var userInput = new UserInputHandler();
+            var result = UserInputHandler.ValidateInput(coordinatesString);
             Assert.False(result);
             
         }
@@ -40,8 +40,8 @@ namespace TicTacToe
         [InlineData("1,3",1,3)]
         public void InputStringOutputTuple(string coordinatesString, int x, int y)
         {
-            var userInput = new GetUserInput();
-            var result = GetUserInput.CoordinatesToTuple(coordinatesString);
+            var userInput = new UserInputHandler();
+            var result = UserInputHandler.CoordinatesToTuple(coordinatesString);
             var newTuple = Tuple.Create(x, y);
             Assert.Equal(newTuple, result);
 
@@ -74,10 +74,10 @@ namespace TicTacToe
         public void IsThisPlaceTaken(int x, int y)
         {
             var board = new Board();
-            Boolean allowed = board.IsLocationTaken(Tuple.Create(x, y));
+            var allowed = board.IsLocationTaken(Tuple.Create(x, y));
             board.AddMove(Tuple.Create(x,y),true);
             Assert.Equal(2,board.Locations[x-1,y-1]);
-            Boolean notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
+            var notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.False(allowed);
             Assert.True(notAllowed);
         }
@@ -100,7 +100,7 @@ namespace TicTacToe
         public void CheckLocationIsNotTaken(int x, int y)
         {
             var board= new Board();
-            Boolean isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
+            var isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
             Assert.False(isItTaken);
         }
 

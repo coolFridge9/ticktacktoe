@@ -6,13 +6,14 @@ namespace TicTacToeMain
 {
     public class WinningMoves
     {
+        private const int NumberInARowToWin = 3;
         private readonly List<Tuple<int, int>> _movesList;
         public WinningMoves(List<Tuple<int, int>> movesList)
         {
             this._movesList = movesList;
         }
 
-        private bool CheckStraightWin() 
+        private bool CheckStraightWin()
         {
             var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
@@ -32,7 +33,7 @@ namespace TicTacToeMain
                 {
                     countY = 0;
                 }
-                if (countX == 2 || countY == 2)
+                if (countX == NumberInARowToWin-1 || countY == NumberInARowToWin-1)
                     return true;
                 
             }
@@ -44,18 +45,25 @@ namespace TicTacToeMain
         {
             var moves = _movesList.OrderBy(i => i.Item1).ToList();
 
-            var win1 = new List<Tuple<int, int>>
+            var win1 = new List<Tuple<int, int>> { };
+            var win2 = new List<Tuple<int, int>> { };
+            for (var i = 1; i <= NumberInARowToWin; i++)
             {
+                win1.Add(new Tuple<int, int>(i, i));
+                win2.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
+            }
+            /*{
                 new Tuple<int, int>(1, 1),
                 new Tuple<int, int>(2, 2),
                 new Tuple<int, int>(3, 3)
-            };
-            var win2 = new List<Tuple<int, int>>
-            {
+            };*/
+
+            //var win2 = new List<Tuple<int, int>> { };
+            /*{
                 new Tuple<int, int>(1, 3),
                 new Tuple<int, int>(2, 2),
                 new Tuple<int, int>(3, 1)
-            };
+            };*/
 
             return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win2);
         }
