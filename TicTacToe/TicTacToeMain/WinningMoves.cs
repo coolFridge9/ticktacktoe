@@ -52,18 +52,6 @@ namespace TicTacToeMain
                 win1.Add(new Tuple<int, int>(i, i));
                 win2.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
             }
-            /*{
-                new Tuple<int, int>(1, 1),
-                new Tuple<int, int>(2, 2),
-                new Tuple<int, int>(3, 3)
-            };*/
-
-            //var win2 = new List<Tuple<int, int>> { };
-            /*{
-                new Tuple<int, int>(1, 3),
-                new Tuple<int, int>(2, 2),
-                new Tuple<int, int>(3, 1)
-            };*/
 
             return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win2);
         }

@@ -20,7 +20,12 @@ namespace TicTacToeMain
                 if (board.DidUserQuit(userMove))
                     break;
                 
-                userMove = GamePlay.ValidateLocation(board, userMove);
+                
+                userMove = GamePlay.ValidateLocationNotTaken(board, userMove); 
+                
+                if (board.DidUserQuit(userMove))
+                    break;
+                
                 board.AddMove(userMove);
                 userWin = board.DidUserWin();
                 DisplayBoard.PrintBoard(board);

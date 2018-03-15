@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace TicTacToeMain
 {
     public class Board
     {
+        public const int SizeOfboard = 3;
         public readonly int[,] Locations = new int[3,3];
         public int SpacesTaken = 0;
         private readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
@@ -53,7 +56,8 @@ namespace TicTacToeMain
 
         public bool IsAvailableBoardSpace()
         {
-            return SpacesTaken < 9;
+            const int boardSpace = SizeOfboard * SizeOfboard;
+            return SpacesTaken < boardSpace;
         }
 
         public bool DidUserQuit(Tuple<int,int> userMove)
