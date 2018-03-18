@@ -11,7 +11,7 @@ namespace TicTacToeMain
                 Console.WriteLine("This location is taken");
                 UserInputHandler.PrintInstructions();
                 userMove = UserInputHandler.GetUserInput();
-                if (userMove.Equals(Tuple.Create(-1, -1)))
+                if (userMove.Equals(Board.QuitMove))
                     return userMove;
             }
 
@@ -27,6 +27,11 @@ namespace TicTacToeMain
         {
             UserInputHandler.PrintInstructions();
             return UserInputHandler.GetUserInput();
+        }
+        
+        public static bool IsBoardFull(Board board)
+        {
+            return board.SpacesTaken == Board.SizeOfboard * Board.SizeOfboard;
         }
     }
 }

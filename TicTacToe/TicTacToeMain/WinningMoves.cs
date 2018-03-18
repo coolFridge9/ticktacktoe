@@ -6,7 +6,7 @@ namespace TicTacToeMain
 {
     public class WinningMoves
     {
-        private const int NumberInARowToWin = 3;
+        private const int NumberInARowToWin = Board.SizeOfboard;
         private readonly List<Tuple<int, int>> _movesList;
         public WinningMoves(List<Tuple<int, int>> movesList)
         {

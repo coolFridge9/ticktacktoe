@@ -4,27 +4,26 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace TicTacToeMain
 {
-    public class ComputerTurn
+    public class ComputerMoves
     {
         public static Tuple<int, int> FindAvailableSpace(Board board) 
         {
-            for (var i = 1; i <= 3; i++)
+            for (var i = 1; i <= Board.SizeOfboard; i++)
             {
-                for (var k = 1; k <= 3; k++)
+                for (var k = 1; k <= Board.SizeOfboard; k++)
                 {
                     if (!board.IsLocationTaken(Tuple.Create(i,k)))
                         return Tuple.Create(i, k);
 
                 }
             } 
-            return Tuple.Create(-1, -1);
+            return Board.QuitMove;
         }
 
-        public static bool IsBoardFull(Board board)
+        /*public static Tuple<int, int> FindLogicalSpace(Board board)
         {
-            return board.SpacesTaken == 9;
-        }
-        
-        
+            
+        }*/
+
     }
 }

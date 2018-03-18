@@ -9,11 +9,19 @@ namespace TicTacToeMain
 {
     public class Board
     {
-        public const int SizeOfboard = 3;
-        public readonly int[,] Locations = new int[3,3];
+        public const int SizeOfboard = 4;
+        public readonly int[,] Locations = new int[SizeOfboard,SizeOfboard];
         public int SpacesTaken = 0;
         private readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
         private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
+        public static readonly Tuple<int, int> QuitMove = Tuple.Create(-1, -1);
+
+        private enum Players
+        {
+            Blank,
+            User,
+            Computer
+        }
 
         public void AddMove(Tuple<int,int> location, bool isComputer = false)
         {
@@ -23,11 +31,11 @@ namespace TicTacToeMain
             switch (isComputer)
             {
                 case true:
-                    marker = 2;
+                    marker = (int)Players.Computer;
                     _computerMovesList.Add(location);
                     break;
                 default:
-                    marker = 1;
+                    marker = (int) Players.User;
                     _userMovesList.Add(location);
                     break;
             }
@@ -60,9 +68,10 @@ namespace TicTacToeMain
             return SpacesTaken < boardSpace;
         }
 
-        public bool DidUserQuit(Tuple<int,int> userMove)
+        public static bool DidUserQuit(Tuple<int,int> userMove)
         {
-            return userMove.Equals(Tuple.Create(-1, -1));
+            return userMove.Equals(QuitMove);
+            
         }
         
     }

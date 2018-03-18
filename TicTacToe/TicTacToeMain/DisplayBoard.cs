@@ -10,9 +10,9 @@ namespace TicTacToeMain
         }
         public static void PrintBoard(Board board)
         {
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < Board.SizeOfboard; i++)
             {
-                for (var k = 0; k < 3; k++)
+                for (var k = 0; k < Board.SizeOfboard; k++)
                 {
                     var symbol = '.';
                     switch (board.Locations[i, k])

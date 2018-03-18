@@ -110,8 +110,8 @@ namespace TicTacToe
             Board board = new Board();
             board.AddMove(Tuple.Create(2,2),false);
             board.AddMove(Tuple.Create(1,1),false);
-            var compTurn = new ComputerTurn();
-            var freeSpace = ComputerTurn.FindAvailableSpace(board);
+            var compTurn = new ComputerMoves();
+            var freeSpace = ComputerMoves.FindAvailableSpace(board);
             Assert.Equal(Tuple.Create(1, 2),freeSpace);
         }
         
