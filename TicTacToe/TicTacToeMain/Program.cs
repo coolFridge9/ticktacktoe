@@ -33,7 +33,7 @@ namespace TicTacToeMain
                 if (GamePlay.IsBoardFull(board) || userWin)
                     break;
                 
-                board.AddMove(ComputerMoves.FindAvailableSpace(board), true);
+                board.AddMove(ComputerMoves.FindRandomSpace(board), true);
                 compWin =board.DidComputerWin();
                 DisplayBoard.PrintBoard(board);
                 

@@ -20,10 +20,27 @@ namespace TicTacToeMain
             return Board.QuitMove;
         }
 
-        /*public static Tuple<int, int> FindLogicalSpace(Board board)
+       /* public static Tuple<int, int> FindLogicalSpace(Board board)
         {
             
+            
         }*/
+
+        public static Tuple<int, int> FindRandomSpace(Board board)
+        {
+            var randNumMaker = new Random();
+            var x = randNumMaker.Next(1, Board.SizeOfboard);
+            var y = randNumMaker.Next(1, Board.SizeOfboard);
+            while (board.IsLocationTaken(Tuple.Create(x, y)))
+            {
+                x = randNumMaker.Next(1, Board.SizeOfboard); // instead get avail space list
+                y = randNumMaker.Next(1, Board.SizeOfboard);
+            }
+
+
+            return Tuple.Create(x, y);
+        }
+        
 
     }
 }

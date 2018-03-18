@@ -9,7 +9,7 @@ namespace TicTacToeMain
 {
     public class Board
     {
-        public const int SizeOfboard = 4;
+        public const int SizeOfboard = 3;
         public readonly int[,] Locations = new int[SizeOfboard,SizeOfboard];
         public int SpacesTaken = 0;
         private readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();

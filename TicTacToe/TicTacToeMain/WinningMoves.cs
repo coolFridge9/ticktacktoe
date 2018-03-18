@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 
 namespace TicTacToeMain
 {
@@ -40,6 +42,24 @@ namespace TicTacToeMain
 
             return false;
         }
+
+        /*private int RowXConsecutiveMoves()
+        {
+            var movesCount = 0;
+            var OrderedistOfMoves = _movesList.OrderBy(i => i.Item1).ToList();
+            for (var i = 1; i < _movesList.Count; i++)
+            {
+                if (OrderedistOfMoves[i].Item1 == OrderedistOfMoves[i - 1].Item1)
+                    movesCount += 1;
+                else
+                {
+                    movesCount = 0;
+                }
+            }
+
+            return 0;
+
+        }*/
 
         private bool CheckDiagonalWin()
         {
