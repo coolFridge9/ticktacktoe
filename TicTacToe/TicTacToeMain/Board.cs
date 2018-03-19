@@ -12,7 +12,7 @@ namespace TicTacToeMain
         public const int SizeOfboard = 3;
         public readonly int[,] Locations = new int[SizeOfboard,SizeOfboard];
         public int SpacesTaken = 0;
-        private readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
+        private static readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
         private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
         public static readonly Tuple<int, int> QuitMove = Tuple.Create(-1, -1);
 

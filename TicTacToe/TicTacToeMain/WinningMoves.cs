@@ -15,7 +15,7 @@ namespace TicTacToeMain
             this._movesList = movesList;
         }
 
-        private bool CheckStraightWin()
+        private bool CheckStraight(int amountOfMovesInARow)
         {
             var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
@@ -35,42 +35,26 @@ namespace TicTacToeMain
                 {
                     countY = 0;
                 }
-                if (countX == NumberInARowToWin-1 || countY == NumberInARowToWin-1)
+                if (countX == amountOfMovesInARow-1 || countY == amountOfMovesInARow-1)
                     return true;
+                
                 
             }
 
             return false;
         }
 
-        /*private int RowXConsecutiveMoves()
-        {
-            var movesCount = 0;
-            var OrderedistOfMoves = _movesList.OrderBy(i => i.Item1).ToList();
-            for (var i = 1; i < _movesList.Count; i++)
-            {
-                if (OrderedistOfMoves[i].Item1 == OrderedistOfMoves[i - 1].Item1)
-                    movesCount += 1;
-                else
-                {
-                    movesCount = 0;
-                }
-            }
 
-            return 0;
-
-        }*/
-
-        private bool CheckDiagonalWin()
+        private bool CheckDiagonal(int amountOfMovesInARow)
         {
             var moves = _movesList.OrderBy(i => i.Item1).ToList();
 
             var win1 = new List<Tuple<int, int>> { };
             var win2 = new List<Tuple<int, int>> { };
-            for (var i = 1; i <= NumberInARowToWin; i++)
+            for (var i = 1; i <= amountOfMovesInARow; i++)
             {
                 win1.Add(new Tuple<int, int>(i, i));
-                win2.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
+                win2.Add(new Tuple<int, int>(i,amountOfMovesInARow+1-i));
             }
 
             return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win2);
@@ -78,7 +62,7 @@ namespace TicTacToeMain
 
         public bool CheckWin()
         {
-            return CheckDiagonalWin() || CheckStraightWin();
+            return CheckDiagonal(NumberInARowToWin) || CheckStraight(NumberInARowToWin);
         }
 
         private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
