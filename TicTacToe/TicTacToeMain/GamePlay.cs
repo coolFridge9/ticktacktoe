@@ -31,7 +31,7 @@ namespace TicTacToeMain
         
         public static bool IsBoardFull(Board board)
         {
-            return board.SpacesTaken == Board.SizeOfboard * Board.SizeOfboard;
+            return board.SpacesTaken == Board.SizeOfBoard * Board.SizeOfBoard;
         }
     }
 }

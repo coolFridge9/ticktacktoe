@@ -8,14 +8,14 @@ namespace TicTacToeMain
 {
     public class WinningMoves
     {
-        private const int NumberInARowToWin = Board.SizeOfboard;
+        private const int NumberInARowToWin = Board.SizeOfBoard;
         private readonly List<Tuple<int, int>> _movesList;
         public WinningMoves(List<Tuple<int, int>> movesList)
         {
             this._movesList = movesList;
         }
 
-        private bool CheckStraight(int amountOfMovesInARow)
+        private bool CheckStraight()
         {
             var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
@@ -35,7 +35,7 @@ namespace TicTacToeMain
                 {
                     countY = 0;
                 }
-                if (countX == amountOfMovesInARow-1 || countY == amountOfMovesInARow-1)
+                if (countX == NumberInARowToWin-1 || countY == NumberInARowToWin-1)
                     return true;
                 
                 
@@ -45,16 +45,16 @@ namespace TicTacToeMain
         }
 
 
-        private bool CheckDiagonal(int amountOfMovesInARow)
+        private bool CheckDiagonal()
         {
             var moves = _movesList.OrderBy(i => i.Item1).ToList();
 
             var win1 = new List<Tuple<int, int>> { };
             var win2 = new List<Tuple<int, int>> { };
-            for (var i = 1; i <= amountOfMovesInARow; i++)
+            for (var i = 1; i <= NumberInARowToWin; i++)
             {
                 win1.Add(new Tuple<int, int>(i, i));
-                win2.Add(new Tuple<int, int>(i,amountOfMovesInARow+1-i));
+                win2.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
             }
 
             return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win2);
@@ -62,8 +62,17 @@ namespace TicTacToeMain
 
         public bool CheckWin()
         {
-            return CheckDiagonal(NumberInARowToWin) || CheckStraight(NumberInARowToWin);
+            return CheckDiagonal() || CheckStraight();
         }
+
+        /*public static bool CheckPontentialWin(Tuple<int,int> potentialMove)
+        {
+            var movesList = _movesList;
+            movesList.Add(potentialMove);
+            var willWin = CheckWin();
+            _movesList.RemoveAt(_movesList.Count-1);
+            return willWin;
+        }*/
 
         private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
         {

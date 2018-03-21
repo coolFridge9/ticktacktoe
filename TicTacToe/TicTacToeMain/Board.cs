@@ -9,12 +9,13 @@ namespace TicTacToeMain
 {
     public class Board
     {
-        public const int SizeOfboard = 3;
-        public readonly int[,] Locations = new int[SizeOfboard,SizeOfboard];
+        public const int SizeOfBoard = 3;
+        public readonly int[,] Locations = new int[SizeOfBoard,SizeOfBoard];
         public int SpacesTaken = 0;
-        private static readonly List<Tuple<int, int>> _userMovesList = new List<Tuple<int, int>>();
+        public static List<Tuple<int, int>> UserMovesList { get; } = new List<Tuple<int, int>>();
         private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
         public static readonly Tuple<int, int> QuitMove = Tuple.Create(-1, -1);
+        //public Tuple<int, int> MostRecentUserMove = new Tuple<int, int>(0,0);
 
         private enum Players
         {
@@ -36,7 +37,8 @@ namespace TicTacToeMain
                     break;
                 default:
                     marker = (int) Players.User;
-                    _userMovesList.Add(location);
+                    UserMovesList.Add(location);
+                    //MostRecentUserMove = location;
                     break;
             }
             
@@ -50,9 +52,9 @@ namespace TicTacToeMain
             return place == 1 || place == 2;
         }
 
-        public bool DidUserWin()
+        public static bool DidUserWin()
         {
-            var user = new WinningMoves(_userMovesList);
+            var user = new WinningMoves(UserMovesList);
             return user.CheckWin();
         }
 
@@ -64,7 +66,7 @@ namespace TicTacToeMain
 
         public bool IsAvailableBoardSpace()
         {
-            const int boardSpace = SizeOfboard * SizeOfboard;
+            const int boardSpace = SizeOfBoard * SizeOfBoard;
             return SpacesTaken < boardSpace;
         }
 

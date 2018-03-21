@@ -27,7 +27,7 @@ namespace TicTacToeMain
                     break;
                 
                 board.AddMove(userMove);
-                userWin = board.DidUserWin();
+                userWin = Board.DidUserWin();
                 DisplayBoard.PrintBoard(board);
                 
                 if (GamePlay.IsBoardFull(board) || userWin)
