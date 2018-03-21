@@ -21,19 +21,24 @@ namespace TicTacToeMain
         {
             var xAxisCoordinates = FlattenTupleListToListOfXCoordinates(_movesList);
             xAxisCoordinates.Sort();
-            var countInARow = 0;
+            return CheckIfThereIsEnoughConsecutive(xAxisCoordinates);
+        }
+
+        private bool CheckIfThereIsEnoughConsecutive(List<int> coordinateList)
+        {
+            var consecutiveCount = 0;
             var amountOfMovesMade = _movesList.Count;
             
             for (var move = 1; move < amountOfMovesMade; move++)
             {
-                if (xAxisCoordinates[move] == xAxisCoordinates[move - 1])
-                    countInARow += 1;
+                if (coordinateList[move] == coordinateList[move - 1])
+                    consecutiveCount += 1;
                 else
                 {
-                    countInARow = Reset();
+                    consecutiveCount = Reset();
                 }
                 
-                if (countInARow == NumberInARowToWin-1)
+                if (consecutiveCount == NumberInARowToWin-1)
                     return true;
                 
                 
@@ -44,26 +49,9 @@ namespace TicTacToeMain
 
         private bool CheckVertical()
         {
-            var orderedMoveList = OrderMovesByYAxis();
-            var countInARow = 0;
-            var amountOfMovesMade = _movesList.Count;
-            
-            for (var move = 1; move < amountOfMovesMade; move++)
-            {
-                if (orderedMoveList[move].Item2 == orderedMoveList[move - 1].Item2)
-                    countInARow += 1;
-                else
-                {
-                    countInARow = Reset();
-                }
-                
-                if (countInARow == NumberInARowToWin-1)
-                    return true;
-                
-                
-            }
-
-            return false;
+            var yAxisCoordinates = FlattenTupleListToListOfYCoordinates(_movesList);
+            yAxisCoordinates.Sort();
+            return CheckIfThereIsEnoughConsecutive(yAxisCoordinates);
         }
 
 
@@ -73,6 +61,17 @@ namespace TicTacToeMain
             foreach(var move in orderedMovesList)
             {
                 xCoordinates.Add(move.Item1);
+            }
+
+            return xCoordinates;
+        }
+        
+        private List<int> FlattenTupleListToListOfYCoordinates(List<Tuple<int, int>> orderedMovesList)
+        {
+            var xCoordinates = new List<int>();
+            foreach(var move in orderedMovesList)
+            {
+                xCoordinates.Add(move.Item2);
             }
 
             return xCoordinates;
