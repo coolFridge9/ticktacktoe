@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -18,13 +19,14 @@ namespace TicTacToeMain
 
         private bool CheckHorizontal()
         {
-            var orderedMoveList = OrderMovesByXAxis();
+            var xAxisCoordinates = FlattenTupleListToListOfXCoordinates(_movesList);
+            xAxisCoordinates.Sort();
             var countInARow = 0;
             var amountOfMovesMade = _movesList.Count;
             
             for (var move = 1; move < amountOfMovesMade; move++)
             {
-                if (orderedMoveList[move].Item1 == orderedMoveList[move - 1].Item1)
+                if (xAxisCoordinates[move] == xAxisCoordinates[move - 1])
                     countInARow += 1;
                 else
                 {
@@ -64,9 +66,16 @@ namespace TicTacToeMain
             return false;
         }
 
-        private List<Tuple<int, int>> OrderMovesByXAxis()
+
+        private List<int> FlattenTupleListToListOfXCoordinates(List<Tuple<int, int>> orderedMovesList)
         {
-            return _movesList.OrderBy(i => i.Item1).ToList();
+            var xCoordinates = new List<int>();
+            foreach(var move in orderedMovesList)
+            {
+                xCoordinates.Add(move.Item1);
+            }
+
+            return xCoordinates;
         }
         
         private List<Tuple<int, int>> OrderMovesByYAxis()
