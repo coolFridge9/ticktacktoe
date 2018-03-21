@@ -42,6 +42,11 @@ namespace TicTacToeMain
             
         }*/
 
+        public void reallyGoodAiMove()
+        {
+            
+        }
+
         private static Tuple<int, int> GetMiddleSquare()
         {
             return Tuple.Create(Board.SizeOfBoard/2, Board.SizeOfBoard/2);
