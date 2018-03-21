@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace TicTacToeMain
@@ -15,7 +16,71 @@ namespace TicTacToeMain
             this._movesList = movesList;
         }
 
-        private bool CheckStraight()
+        private bool CheckHorizontal()
+        {
+            var orderedMoveList = OrderMovesByXAxis();
+            var countInARow = 0;
+            var amountOfMovesMade = _movesList.Count;
+            
+            for (var move = 1; move < amountOfMovesMade; move++)
+            {
+                if (orderedMoveList[move].Item1 == orderedMoveList[move - 1].Item1)
+                    countInARow += 1;
+                else
+                {
+                    countInARow = Reset();
+                }
+                
+                if (countInARow == NumberInARowToWin-1)
+                    return true;
+                
+                
+            }
+
+            return false;
+        }
+
+        private bool CheckVertical()
+        {
+            var orderedMoveList = OrderMovesByYAxis();
+            var countInARow = 0;
+            var amountOfMovesMade = _movesList.Count;
+            
+            for (var move = 1; move < amountOfMovesMade; move++)
+            {
+                if (orderedMoveList[move].Item2 == orderedMoveList[move - 1].Item2)
+                    countInARow += 1;
+                else
+                {
+                    countInARow = Reset();
+                }
+                
+                if (countInARow == NumberInARowToWin-1)
+                    return true;
+                
+                
+            }
+
+            return false;
+        }
+
+        private List<Tuple<int, int>> OrderMovesByXAxis()
+        {
+            return _movesList.OrderBy(i => i.Item1).ToList();
+        }
+        
+        private List<Tuple<int, int>> OrderMovesByYAxis()
+        {
+            return _movesList.OrderBy(i => i.Item2).ToList();
+        }
+
+        private int Reset()
+        {
+            return 0;
+        }
+        
+
+        private bool CheckStraight() //two functions
         {
             var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
@@ -40,6 +105,7 @@ namespace TicTacToeMain
                 
                 
             }
+            
 
             return false;
         }
@@ -65,14 +131,13 @@ namespace TicTacToeMain
             return CheckDiagonal() || CheckStraight();
         }
 
-        /*public static bool CheckPontentialWin(Tuple<int,int> potentialMove)
+        public bool CheckPontentialWin(Tuple<int,int> potentialMove) //use move in function name
         {
-            var movesList = _movesList;
-            movesList.Add(potentialMove);
+            _movesList.Add(potentialMove);
             var willWin = CheckWin();
             _movesList.RemoveAt(_movesList.Count-1);
             return willWin;
-        }*/
+        }
 
         private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
         {

@@ -9,10 +9,10 @@ namespace TicTacToeMain
             var board = new Board();
             var seeBoard = new DisplayBoard(board);
             var gamePlay= new GamePlay();
-            var userWin = false;
-            var compWin = false;
+            var didUserWin = false;
+            var didComputerWin = false;
 
-            while (GamePlay.CanKeepPlaying(board.IsAvailableBoardSpace() , compWin))
+            while (GamePlay.CanKeepPlaying(board.HasEmptySpaces() , didComputerWin))
             {
 
                 var userMove = GamePlay.GetMove(); 
@@ -27,20 +27,20 @@ namespace TicTacToeMain
                     break;
                 
                 board.AddMove(userMove);
-                userWin = Board.DidUserWin();
+                didUserWin = Board.DidUserWin();
                 DisplayBoard.PrintBoard(board);
                 
-                if (GamePlay.IsBoardFull(board) || userWin)
+                if (GamePlay.IsBoardFull(board) || didUserWin)
                     break;
                 
                 board.AddMove(ComputerMoves.FindRandomSpace(board), true);
-                compWin =board.DidComputerWin();
+                didComputerWin =board.DidComputerWin();
                 DisplayBoard.PrintBoard(board);
                 
                  
             }
 
-            var endGame = new FinishGameMessage(userWin, compWin);
+            var endGame = new FinishGameMessage(didUserWin, didComputerWin);
 
 
         }
