@@ -107,12 +107,46 @@ namespace TicTacToe
         [Fact]
         public void FindingCorrectFreeSpace()
         {
-            Board board = new Board();
-            board.AddMove(Tuple.Create(2,2),false);
-            board.AddMove(Tuple.Create(1,1),false);
+            var board = new Board();
+            board.AddMove(Tuple.Create(2,2));
+            board.AddMove(Tuple.Create(1,1));
             var compTurn = new ComputerMoves();
             var freeSpace = ComputerMoves.FindAvailableSpace(board);
             Assert.Equal(Tuple.Create(1, 2),freeSpace);
+        }
+
+        [Fact]
+        public void CheckWinCondidtionDiagonal() //only works if board size is 3
+        {
+            var board = new Board();
+            board.AddMove(Tuple.Create(2,2));
+            board.AddMove(Tuple.Create(1,1));
+            board.AddMove(Tuple.Create(3,3));
+            var result = Board.DidUserWin();
+            Assert.True((result));
+        }
+        
+        [Fact]
+        public void CheckWinCondidtionHorizontal() //only works if board size is 3
+        {
+            var board = new Board();
+            board.AddMove(Tuple.Create(2,2));
+            board.AddMove(Tuple.Create(2,1));
+            board.AddMove(Tuple.Create(3,1));
+            board.AddMove(Tuple.Create(2,3));
+            var result = Board.DidUserWin();
+            Assert.True((result));
+        }
+        [Fact]
+        public void CheckWinCondidtionVertical() //only works if board size is 3
+        {
+            var board = new Board();
+            board.AddMove(Tuple.Create(1,3));
+            board.AddMove(Tuple.Create(2,1));
+            board.AddMove(Tuple.Create(3,3));
+            board.AddMove(Tuple.Create(2,3));
+            var result = Board.DidUserWin();
+            Assert.True((result));
         }
         
     }

@@ -23,6 +23,13 @@ namespace TicTacToeMain
             xAxisCoordinates.Sort();
             return CheckIfThereIsEnoughConsecutive(xAxisCoordinates);
         }
+        
+        private bool CheckVertical()
+        {
+            var yAxisCoordinates = FlattenTupleListToListOfYCoordinates(_movesList);
+            yAxisCoordinates.Sort();
+            return CheckIfThereIsEnoughConsecutive(yAxisCoordinates);
+        }
 
         private bool CheckIfThereIsEnoughConsecutive(List<int> coordinateList)
         {
@@ -35,24 +42,15 @@ namespace TicTacToeMain
                     consecutiveCount += 1;
                 else
                 {
-                    consecutiveCount = Reset();
+                    consecutiveCount = ResetCount();
                 }
                 
                 if (consecutiveCount == NumberInARowToWin-1)
                     return true;
-                
-                
             }
-
             return false;
         }
 
-        private bool CheckVertical()
-        {
-            var yAxisCoordinates = FlattenTupleListToListOfYCoordinates(_movesList);
-            yAxisCoordinates.Sort();
-            return CheckIfThereIsEnoughConsecutive(yAxisCoordinates);
-        }
 
 
         private List<int> FlattenTupleListToListOfXCoordinates(List<Tuple<int, int>> orderedMovesList)
@@ -82,7 +80,7 @@ namespace TicTacToeMain
             return _movesList.OrderBy(i => i.Item2).ToList();
         }
 
-        private int Reset()
+        private int ResetCount()
         {
             return 0;
         }
