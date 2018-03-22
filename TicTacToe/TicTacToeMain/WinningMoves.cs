@@ -12,6 +12,7 @@ namespace TicTacToeMain
     {
         private const int NumberInARowToWin = Board.SizeOfBoard;
         private readonly List<Tuple<int, int>> _movesList;
+        
         public WinningMoves(List<Tuple<int, int>> movesList)
         {
             this._movesList = movesList;
@@ -38,7 +39,10 @@ namespace TicTacToeMain
             
             for (var move = 1; move < amountOfMovesMade; move++)
             {
-                if (coordinateList[move] == coordinateList[move - 1])
+                var currentCoordinate = coordinateList[move];
+                var previousCoordinate = coordinateList[move - 1];
+                    
+                if (currentCoordinate == previousCoordinate)
                     consecutiveCount += 1;
                 else
                 {
@@ -79,37 +83,6 @@ namespace TicTacToeMain
         {
             return 0;
         }
-        
-
-        private bool CheckStraight() 
-        {
-            /*var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
-            var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
-            var countX = 0;
-            var countY = 0;
-            for (var i = 1; i < _movesList.Count; i++)
-            {
-                if (xMoves[i].Item1 == xMoves[i - 1].Item1)
-                    countX += 1;
-                else
-                {
-                    countX = 0;
-                }
-                if (yMoves[i].Item2 == yMoves[i - 1].Item2)
-                    countY += 1;
-                else
-                {
-                    countY = 0;
-                }
-                if (countX == NumberInARowToWin-1 || countY == NumberInARowToWin-1)
-                    return true;
-            }
-            
-
-            return false;*/
-            return CheckHorizontal() || CheckVertical();
-        }
-
 
         private bool CheckDiagonal()
         {
@@ -128,10 +101,10 @@ namespace TicTacToeMain
 
         public bool CheckWin()
         {
-            return CheckDiagonal() || CheckHorizontal() || CheckVertical(); // CheckStraight();
+            return CheckDiagonal() || CheckHorizontal() || CheckVertical(); 
         }
 
-        public bool CheckPontentialWin(Tuple<int,int> potentialMove) //use move in function name
+        public bool CheckPontentialWinWhenMoveAdded(Tuple<int,int> potentialMove) 
         {
             _movesList.Add(potentialMove);
             var willWin = CheckWin();
