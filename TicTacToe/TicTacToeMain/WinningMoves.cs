@@ -54,9 +54,38 @@ namespace TicTacToeMain
             }
             return false;
         }
+        private bool CheckDiagonal()
+        {
+            var moves = _movesList.OrderBy(i => i.Item1).ToList();
 
+            var diagonalMoveFromTopLeft = new List<Tuple<int, int>> { };
+            var diagonalMoveFromTopRight = new List<Tuple<int, int>> { };
+            for (var i = 1; i <= NumberInARowToWin; i++)
+            {
+                diagonalMoveFromTopLeft.Add(new Tuple<int, int>(i, i));
+                diagonalMoveFromTopRight.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
+            }
 
+            return ContainsAllItems(moves, diagonalMoveFromTopLeft) || ContainsAllItems(moves, diagonalMoveFromTopRight);
+        }
 
+        public bool CheckWin()
+        {
+            return CheckDiagonal() || CheckHorizontal() || CheckVertical(); 
+        }
+
+        public bool CheckPontentialWinWhenMoveAdded(Tuple<int,int> potentialMove) 
+        {
+            _movesList.Add(potentialMove);
+            var willWin = CheckWin();
+            _movesList.RemoveAt(_movesList.Count-1);
+            return willWin;
+        }
+
+        private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
+        {
+            return !b.Except(a).Any();
+        }
         private List<int> FlattenTupleListToListOfXCoordinates(List<Tuple<int, int>> orderedMovesList)
         {
             var xCoordinates = new List<int>();
@@ -82,39 +111,6 @@ namespace TicTacToeMain
         private int ResetCount()
         {
             return 0;
-        }
-
-        private bool CheckDiagonal()
-        {
-            var moves = _movesList.OrderBy(i => i.Item1).ToList();
-
-            var win1 = new List<Tuple<int, int>> { };
-            var win2 = new List<Tuple<int, int>> { };
-            for (var i = 1; i <= NumberInARowToWin; i++)
-            {
-                win1.Add(new Tuple<int, int>(i, i));
-                win2.Add(new Tuple<int, int>(i,NumberInARowToWin+1-i));
-            }
-
-            return ContainsAllItems(moves, win1) || ContainsAllItems(moves, win2);
-        }
-
-        public bool CheckWin()
-        {
-            return CheckDiagonal() || CheckHorizontal() || CheckVertical(); 
-        }
-
-        public bool CheckPontentialWinWhenMoveAdded(Tuple<int,int> potentialMove) 
-        {
-            _movesList.Add(potentialMove);
-            var willWin = CheckWin();
-            _movesList.RemoveAt(_movesList.Count-1);
-            return willWin;
-        }
-
-        private static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
-        {
-            return !b.Except(a).Any();
         }
 
     }
