@@ -42,10 +42,6 @@ namespace TicTacToeMain
             
         }*/
 
-        public void reallyGoodAiMove()
-        {
-            
-        }
 
         private static Tuple<int, int> GetMiddleSquare()
         {

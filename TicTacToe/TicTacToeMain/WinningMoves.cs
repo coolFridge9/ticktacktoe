@@ -54,6 +54,7 @@ namespace TicTacToeMain
             }
             return false;
         }
+        
         private bool CheckDiagonal()
         {
             var moves = _movesList.OrderBy(i => i.Item1).ToList();

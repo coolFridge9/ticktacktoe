@@ -15,7 +15,7 @@ namespace TicTacToeMain
         public static List<Tuple<int, int>> UserMovesList { get; } = new List<Tuple<int, int>>();
         private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
         public static readonly Tuple<int, int> QuitMove = Tuple.Create(-1, -1);
-        //public Tuple<int, int> MostRecentUserMove = new Tuple<int, int>(0,0);
+        
 
         private enum Players
         {
@@ -38,7 +38,6 @@ namespace TicTacToeMain
                 default:
                     marker = (int) Players.User;
                     UserMovesList.Add(location);
-                    //MostRecentUserMove = location;
                     break;
             }
             
