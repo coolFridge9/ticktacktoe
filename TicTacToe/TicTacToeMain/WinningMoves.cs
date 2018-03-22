@@ -21,19 +21,19 @@ namespace TicTacToeMain
         {
             var xAxisCoordinates = FlattenTupleListToListOfXCoordinates(_movesList);
             xAxisCoordinates.Sort();
-            return CheckIfThereIsEnoughConsecutive(xAxisCoordinates);
+            return CheckIfThereIsEnoughConsecutiveMoves(xAxisCoordinates);
         }
         
         private bool CheckVertical()
         {
             var yAxisCoordinates = FlattenTupleListToListOfYCoordinates(_movesList);
             yAxisCoordinates.Sort();
-            return CheckIfThereIsEnoughConsecutive(yAxisCoordinates);
+            return CheckIfThereIsEnoughConsecutiveMoves(yAxisCoordinates);
         }
 
-        private bool CheckIfThereIsEnoughConsecutive(List<int> coordinateList)
+        private bool CheckIfThereIsEnoughConsecutiveMoves(List<int> coordinateList)
         {
-            var consecutiveCount = 0;
+            var consecutiveCount = ResetCount();
             var amountOfMovesMade = _movesList.Count;
             
             for (var move = 1; move < amountOfMovesMade; move++)
@@ -74,11 +74,6 @@ namespace TicTacToeMain
 
             return xCoordinates;
         }
-        
-        private List<Tuple<int, int>> OrderMovesByYAxis()
-        {
-            return _movesList.OrderBy(i => i.Item2).ToList();
-        }
 
         private int ResetCount()
         {
@@ -86,9 +81,9 @@ namespace TicTacToeMain
         }
         
 
-        private bool CheckStraight() //two functions
+        private bool CheckStraight() 
         {
-            var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
+            /*var xMoves = _movesList.OrderBy(i => i.Item1).ToList();
             var yMoves = _movesList.OrderBy(i => i.Item2).ToList();
             var countX = 0;
             var countY = 0;
@@ -108,12 +103,11 @@ namespace TicTacToeMain
                 }
                 if (countX == NumberInARowToWin-1 || countY == NumberInARowToWin-1)
                     return true;
-                
-                
             }
             
 
-            return false;
+            return false;*/
+            return CheckHorizontal() || CheckVertical();
         }
 
 
@@ -134,7 +128,7 @@ namespace TicTacToeMain
 
         public bool CheckWin()
         {
-            return CheckDiagonal() || CheckStraight();
+            return CheckDiagonal() || CheckHorizontal() || CheckVertical(); // CheckStraight();
         }
 
         public bool CheckPontentialWin(Tuple<int,int> potentialMove) //use move in function name
