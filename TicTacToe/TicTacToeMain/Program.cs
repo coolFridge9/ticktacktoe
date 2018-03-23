@@ -17,17 +17,17 @@ namespace TicTacToeMain
 
                 var userMove = GamePlay.GetMove(); 
                 
-                if (Board.DidUserQuit(userMove))
+                if (board.DidUserQuit(userMove))
                     break;
                 
                 
                 userMove = GamePlay.ValidateLocationNotTaken(board, userMove); 
                 
-                if (Board.DidUserQuit(userMove))
+                if (board.DidUserQuit(userMove))
                     break;
                 
                 board.AddMove(userMove);
-                didUserWin = Board.DidUserWin();
+                didUserWin = board.DidUserWin();
                 DisplayBoard.PrintBoard(board);
                 
                 if (GamePlay.IsBoardFull(board) || didUserWin)

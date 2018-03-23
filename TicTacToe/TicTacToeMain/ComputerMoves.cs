@@ -10,7 +10,7 @@ namespace TicTacToeMain
 {
     public class ComputerMoves
     {
-        private static Board _board = new Board();
+        private Board board = new Board();
         public static Tuple<int, int> FindAvailableSpace(Board board) 
         {
             for (var i = 1; i <= Board.SizeOfBoard; i++)
@@ -25,9 +25,9 @@ namespace TicTacToeMain
             return Board.QuitMove;
         }
 
-        /*public static Tuple<int, int> MoveToBlockOpponent(Board board)
+        public Tuple<int, int> MoveToBlockOpponent(Board board)
         {
-            _board = board;
+            this.board = board;
             var listOfSpaces = GetListOfAvailableSpaces(board);
             if (CheckIfCanWin())
                 return GetWinningMove();
@@ -40,7 +40,7 @@ namespace TicTacToeMain
                 return FindRandomSpace(board);
             }            
             
-        }*/
+        }
 
 
         private static Tuple<int, int> GetMiddleSquare()
@@ -48,39 +48,48 @@ namespace TicTacToeMain
             return Tuple.Create(Board.SizeOfBoard/2, Board.SizeOfBoard/2);
         }
 
-        private static bool IsMiddleSquareTaken()
+        private bool IsMiddleSquareTaken()
         {
-            return _board.IsLocationTaken(GetMiddleSquare());
+            return board.IsLocationTaken(GetMiddleSquare());
         }
 
-        private static Tuple<int, int> GetBlockingMove()
+        private Tuple<int, int> GetBlockingMove()
         {
-            throw new NotImplementedException();
-        }
-
-        private static bool CheckIfCanBlock()
-        {
-            throw new NotImplementedException();
-        }
-
-        /*private static Tuple<int, int> GetWinningMove()
-        {
-            var listOfSpaces = GetListOfAvailableSpaces(_board);
+            var listOfSpaces = GetListOfAvailableSpaces(board);
             foreach (var move in listOfSpaces)
             {
-                var winDecider = new WinningMoves(_board.UserMovesList);
-                if (WinningMoves.CheckPontentialWin(move))
+                var winDecider = new WinningMoves(board.ComputerMovesList);
+                if (winDecider.CheckPontentialWinWhenMoveAdded(move))
                     return move;
             }
 
             return Tuple.Create(-1, -1);
         }
 
-        private static bool CheckIfCanWin()
+        private bool CheckIfCanBlock()
+        {
+            var winningMove = GetBlockingMove();
+            return !Equals(winningMove, Tuple.Create(-1, -1));
+        }
+
+        private Tuple<int, int> GetWinningMove()
+        {
+            var listOfSpaces = GetListOfAvailableSpaces(board);
+            foreach (var move in listOfSpaces)
+            {
+                var winDecider = new WinningMoves(board.UserMovesList);
+                if (winDecider.CheckPontentialWinWhenMoveAdded(move))
+                    return move;
+            }
+
+            return Tuple.Create(-1, -1);
+        }
+
+        private bool CheckIfCanWin()
         {
             var winningMove = GetWinningMove();
             return !Equals(winningMove, Tuple.Create(-1, -1));
-        }*/
+        }
 
         public static Tuple<int, int> FindRandomSpace(Board board)
         {

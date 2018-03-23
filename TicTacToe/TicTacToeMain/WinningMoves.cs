@@ -18,21 +18,21 @@ namespace TicTacToeMain
             this._movesList = movesList;
         }
 
-        private bool CheckHorizontal()
+        private bool CheckHorizontal() //horizontal winning line
         {
             var xAxisCoordinates = FlattenTupleListToListOfXCoordinates(_movesList);
             xAxisCoordinates.Sort();
-            return CheckIfThereIsEnoughConsecutiveMoves(xAxisCoordinates);
+            return HasWinningLine(xAxisCoordinates);
         }
         
         private bool CheckVertical()
         {
             var yAxisCoordinates = FlattenTupleListToListOfYCoordinates(_movesList);
             yAxisCoordinates.Sort();
-            return CheckIfThereIsEnoughConsecutiveMoves(yAxisCoordinates);
+            return HasWinningLine(yAxisCoordinates);
         }
 
-        private bool CheckIfThereIsEnoughConsecutiveMoves(List<int> coordinateList)
+        private bool HasWinningLine(List<int> coordinateList)
         {
             var consecutiveCount = ResetCount();
             var amountOfMovesMade = _movesList.Count;
@@ -55,7 +55,7 @@ namespace TicTacToeMain
             return false;
         }
         
-        private bool CheckDiagonal()
+        private bool CheckDiagonal() // have a loop of subrtraction to reuse the has winning line code
         {
             var moves = _movesList.OrderBy(i => i.Item1).ToList();
 

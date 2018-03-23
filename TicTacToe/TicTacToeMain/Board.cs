@@ -12,8 +12,8 @@ namespace TicTacToeMain
         public const int SizeOfBoard = 3;
         public readonly int[,] Locations = new int[SizeOfBoard,SizeOfBoard];
         public int SpacesTaken = 0;
-        public static List<Tuple<int, int>> UserMovesList { get; } = new List<Tuple<int, int>>();
-        private readonly List<Tuple<int, int>> _computerMovesList = new List<Tuple<int, int>>();
+        public List<Tuple<int, int>> UserMovesList { get; } = new List<Tuple<int, int>>();
+        public List<Tuple<int, int>> ComputerMovesList = new List<Tuple<int, int>>();
         public static readonly Tuple<int, int> QuitMove = Tuple.Create(-1, -1);
         
 
@@ -33,7 +33,7 @@ namespace TicTacToeMain
             {
                 case true:
                     marker = (int)Players.Computer;
-                    _computerMovesList.Add(location);
+                    ComputerMovesList.Add(location);
                     break;
                 default:
                     marker = (int) Players.User;
@@ -51,7 +51,7 @@ namespace TicTacToeMain
             return place == 1 || place == 2;
         }
 
-        public static bool DidUserWin()
+        public bool DidUserWin()
         {
             var user = new WinningMoves(UserMovesList);
             return user.CheckWin();
@@ -59,7 +59,7 @@ namespace TicTacToeMain
 
         public bool DidComputerWin()
         {
-            var user = new WinningMoves(_computerMovesList);
+            var user = new WinningMoves(ComputerMovesList);
             return user.CheckWin();
         }
 
@@ -69,7 +69,7 @@ namespace TicTacToeMain
             return SpacesTaken < boardSpace;
         }
 
-        public static bool DidUserQuit(Tuple<int,int> userMove)
+        public bool DidUserQuit(Tuple<int,int> userMove)
         {
             return userMove.Equals(QuitMove);
             

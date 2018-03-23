@@ -122,7 +122,7 @@ namespace TicTacToe
             board.AddMove(Tuple.Create(2,2));
             board.AddMove(Tuple.Create(1,1));
             board.AddMove(Tuple.Create(3,3));
-            var result = Board.DidUserWin();
+            var result = board.DidUserWin();
             Assert.True((result));
         }
         
@@ -134,7 +134,7 @@ namespace TicTacToe
             board.AddMove(Tuple.Create(2,1));
             board.AddMove(Tuple.Create(3,1));
             board.AddMove(Tuple.Create(2,3));
-            var result = Board.DidUserWin();
+            var result = board.DidUserWin();
             Assert.True((result));
         }
         [Fact]
@@ -145,9 +145,9 @@ namespace TicTacToe
             board.AddMove(Tuple.Create(2,1));
             board.AddMove(Tuple.Create(3,3));
             board.AddMove(Tuple.Create(2,3));
-            var result = Board.DidUserWin();
+            var result = board.DidUserWin();
             Assert.True((result));
-        }
+        } //dotcover
         
     }
 }
