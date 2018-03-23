@@ -18,10 +18,11 @@ namespace TicTacToe
             var userInput = new UserInputHandler();
             var result = UserInputHandler.ValidateInput(coordinatesString);
             Assert.True(result);
-            
-            
-            
+
+
+
         }
+
         [Theory]
         [InlineData("")]
         [InlineData("1,7")]
@@ -31,13 +32,14 @@ namespace TicTacToe
             var userInput = new UserInputHandler();
             var result = UserInputHandler.ValidateInput(coordinatesString);
             Assert.False(result);
-            
+
         }
-//        CoordinatesToTuple
+
+        //        CoordinatesToTuple
         [Theory]
-        [InlineData("1,1",1,1)]
-        [InlineData("2,2",2,2)]
-        [InlineData("1,3",1,3)]
+        [InlineData("1,1", 1, 1)]
+        [InlineData("2,2", 2, 2)]
+        [InlineData("1,3", 1, 3)]
         public void InputStringOutputTuple(string coordinatesString, int x, int y)
         {
             var userInput = new UserInputHandler();
@@ -55,52 +57,52 @@ namespace TicTacToe
             int loc12, int loc20, int loc21, int loc22)
         {
             var board = new Board();
-            board.AddMove( Tuple.Create(x,y), false);
+            board.AddMove(Tuple.Create(x, y), false);
             var result = board.Locations;
-            Assert.Equal(result[0,0],loc00);
-            Assert.Equal(result[0,1],loc01);
-            Assert.Equal(result[0,2],loc02);
-            Assert.Equal(result[1,0],loc10);
-            Assert.Equal(result[1,1],loc11);
-            Assert.Equal(result[1,2],loc12);
-            Assert.Equal(result[2,0],loc20);
-            Assert.Equal(result[2,1],loc21);
-            Assert.Equal(result[2,2],loc22);
+            Assert.Equal(result[0, 0], loc00);
+            Assert.Equal(result[0, 1], loc01);
+            Assert.Equal(result[0, 2], loc02);
+            Assert.Equal(result[1, 0], loc10);
+            Assert.Equal(result[1, 1], loc11);
+            Assert.Equal(result[1, 2], loc12);
+            Assert.Equal(result[2, 0], loc20);
+            Assert.Equal(result[2, 1], loc21);
+            Assert.Equal(result[2, 2], loc22);
         }
 
         [Theory]
-        [InlineData(1,1)]
-        [InlineData(2,3)]
+        [InlineData(1, 1)]
+        [InlineData(2, 3)]
         public void IsThisPlaceTaken(int x, int y)
         {
             var board = new Board();
             var allowed = board.IsLocationTaken(Tuple.Create(x, y));
-            board.AddMove(Tuple.Create(x,y),true);
-            Assert.Equal(2,board.Locations[x-1,y-1]);
+            board.AddMove(Tuple.Create(x, y), true);
+            Assert.Equal(2, board.Locations[x - 1, y - 1]);
             var notAllowed = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.False(allowed);
             Assert.True(notAllowed);
         }
 
         [Theory]
-        [InlineData(1,1)]
-        [InlineData(2,2)]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
         public void CheckLocationIsTaken(int x, int y)
         {
-            var board= new Board();
-            board.AddMove(Tuple.Create(2,2));
-            board.AddMove(Tuple.Create(1,1));
-            Boolean isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
+            var board = new Board();
+            board.AddMove(Tuple.Create(2, 2));
+            board.AddMove(Tuple.Create(1, 1));
+            Boolean isItTaken = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.True(isItTaken);
         }
-        
+
         [Theory]
-        [InlineData(1,1)]
-        [InlineData(2,2)]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
         public void CheckLocationIsNotTaken(int x, int y)
         {
-            var board= new Board();
-            var isItTaken = board.IsLocationTaken(Tuple.Create(x,y));
+            var board = new Board();
+            var isItTaken = board.IsLocationTaken(Tuple.Create(x, y));
             Assert.False(isItTaken);
         }
 
@@ -108,46 +110,75 @@ namespace TicTacToe
         public void FindingCorrectFreeSpace()
         {
             var board = new Board();
-            board.AddMove(Tuple.Create(2,2));
-            board.AddMove(Tuple.Create(1,1));
+            board.AddMove(Tuple.Create(2, 2));
+            board.AddMove(Tuple.Create(1, 1));
             var compTurn = new ComputerMoves();
             var freeSpace = ComputerMoves.FindAvailableSpace(board);
-            Assert.Equal(Tuple.Create(1, 2),freeSpace);
+            Assert.Equal(Tuple.Create(1, 2), freeSpace);
         }
 
         [Fact]
         public void CheckWinCondidtionDiagonal() //only works if board size is 3
         {
             var board = new Board();
-            board.AddMove(Tuple.Create(2,2));
-            board.AddMove(Tuple.Create(1,1));
-            board.AddMove(Tuple.Create(3,3));
+            board.AddMove(Tuple.Create(2, 2));
+            board.AddMove(Tuple.Create(1, 1));
+            board.AddMove(Tuple.Create(3, 3));
             var result = board.DidUserWin();
             Assert.True((result));
         }
-        
+
         [Fact]
         public void CheckWinCondidtionHorizontal() //only works if board size is 3
         {
             var board = new Board();
-            board.AddMove(Tuple.Create(2,2));
-            board.AddMove(Tuple.Create(2,1));
-            board.AddMove(Tuple.Create(3,1));
-            board.AddMove(Tuple.Create(2,3));
+            board.AddMove(Tuple.Create(2, 2));
+            board.AddMove(Tuple.Create(2, 1));
+            board.AddMove(Tuple.Create(3, 1));
+            board.AddMove(Tuple.Create(2, 3));
             var result = board.DidUserWin();
             Assert.True((result));
         }
+
         [Fact]
         public void CheckWinCondidtionVertical() //only works if board size is 3
         {
             var board = new Board();
-            board.AddMove(Tuple.Create(1,3));
-            board.AddMove(Tuple.Create(2,1));
-            board.AddMove(Tuple.Create(3,3));
-            board.AddMove(Tuple.Create(2,3));
+            board.AddMove(Tuple.Create(1, 3));
+            board.AddMove(Tuple.Create(2, 1));
+            board.AddMove(Tuple.Create(3, 3));
+            board.AddMove(Tuple.Create(2, 3));
             var result = board.DidUserWin();
             Assert.True((result));
         } //dotcover
-        
+
+        [Fact]
+        public void CheckDidntWin()
+        {
+            var board = new Board();
+            board.AddMove(Tuple.Create(3, 1));
+            board.AddMove(Tuple.Create(1, 3), true);
+            board.AddMove(Tuple.Create(3, 3));
+            board.AddMove(Tuple.Create(2, 2), true);
+            board.AddMove(Tuple.Create(1, 2));
+            board.AddMove(Tuple.Create(2, 1), true);
+            board.AddMove(Tuple.Create(1, 1), true);
+            var result = board.DidComputerWin();
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void CheckAIWinsWhenCan()
+        {
+            var board = new Board();
+            var compMove = new ComputerMoves();
+            board.AddMove(Tuple.Create(1, 1));
+            board.AddMove(Tuple.Create(2, 2), true);
+            board.AddMove(Tuple.Create(1, 3));
+            board.AddMove(Tuple.Create(1, 2), true);
+            board.AddMove(Tuple.Create(2, 3));
+            var move = compMove.MoveToBlockOpponent(board);
+            Assert.Equal(Tuple.Create(3, 2), move);
+        }
     }
 }

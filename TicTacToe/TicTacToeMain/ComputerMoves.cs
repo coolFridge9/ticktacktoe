@@ -11,6 +11,7 @@ namespace TicTacToeMain
     public class ComputerMoves
     {
         private Board board = new Board();
+        private Tuple<int, int> doesntExist = Tuple.Create(-1, -1);
         public static Tuple<int, int> FindAvailableSpace(Board board) 
         {
             for (var i = 1; i <= Board.SizeOfBoard; i++)
@@ -29,27 +30,39 @@ namespace TicTacToeMain
         {
             this.board = board;
             var listOfSpaces = GetListOfAvailableSpaces(board);
-            if (CheckIfCanWin())
+            /*if (CheckIfCanWin())
                 return GetWinningMove();
             if (CheckIfCanBlock())
                 return GetBlockingMove();
             if (IsMiddleSquareTaken())
                 return GetMiddleSquare();
-            else
-            {
-                return FindRandomSpace(board);
-            }            
+            return FindRandomSpace(board);*/
+
+            var winningMove = GetWinningMove();
+            if (winningMove != doesntExist)
+                return winningMove;
+
+            var blockMove = GetBlockingMove();
+            if (blockMove != doesntExist)
+                return blockMove;
             
+            if (!IsMiddleSquareTaken())
+                return GetMiddleSquare();
+            
+            return FindRandomSpace(board);
         }
 
 
-        private static Tuple<int, int> GetMiddleSquare()
+        private static Tuple<int, int> GetMiddleSquare() //not working
         {
+            var mid2 = Tuple.Create(Board.SizeOfBoard/2+1, Board.SizeOfBoard/2+1);
             return Tuple.Create(Board.SizeOfBoard/2+1, Board.SizeOfBoard/2+1); //maybe make a case for even and odd sizes
         }
 
         private bool IsMiddleSquareTaken()
         {
+            var isIT = board.IsLocationTaken(GetMiddleSquare());
+            var mid = GetMiddleSquare();
             return board.IsLocationTaken(GetMiddleSquare());
         }
 
@@ -63,13 +76,13 @@ namespace TicTacToeMain
                     return move;
             }
 
-            return Tuple.Create(-1, -1);
+            return doesntExist;
         }
 
         private bool CheckIfCanBlock()
         {
             var winningMove = GetBlockingMove();
-            return !Equals(winningMove, Tuple.Create(-1, -1));
+            return !Equals(winningMove, doesntExist);
         }
 
         private Tuple<int, int> GetWinningMove()
@@ -82,13 +95,13 @@ namespace TicTacToeMain
                     return move;
             }
 
-            return Tuple.Create(-1, -1);
+            return doesntExist;
         }
 
         private bool CheckIfCanWin()
         {
             var winningMove = GetWinningMove();
-            return !Equals(winningMove, Tuple.Create(-1, -1));
+            return !Equals(winningMove, doesntExist);
         }
 
         public static Tuple<int, int> FindRandomSpace(Board board)

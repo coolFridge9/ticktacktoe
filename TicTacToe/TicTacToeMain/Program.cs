@@ -33,7 +33,8 @@ namespace TicTacToeMain
                 if (GamePlay.IsBoardFull(board) || didUserWin)
                     break;
                 
-                board.AddMove(ComputerMoves.FindRandomSpace(board), true);
+                var computerMove = new ComputerMoves();
+                board.AddMove(computerMove.MoveToBlockOpponent(board), true);
                 didComputerWin =board.DidComputerWin();
                 DisplayBoard.PrintBoard(board);
                 
