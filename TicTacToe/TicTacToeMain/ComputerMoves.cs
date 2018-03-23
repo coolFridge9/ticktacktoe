@@ -45,7 +45,7 @@ namespace TicTacToeMain
 
         private static Tuple<int, int> GetMiddleSquare()
         {
-            return Tuple.Create(Board.SizeOfBoard/2, Board.SizeOfBoard/2);
+            return Tuple.Create(Board.SizeOfBoard/2+1, Board.SizeOfBoard/2+1); //maybe make a case for even and odd sizes
         }
 
         private bool IsMiddleSquareTaken()
